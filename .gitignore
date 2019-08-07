@@ -1,0 +1,44 @@
+## Python & Django
+*.py[cod]
+**/__pycache__
+*/bin/
+*/build/
+*/dist/
+*/eggs/
+*/lib/
+*.egg-info/
+.installed.cfg
+*.egg
+*.log
+
+## OSX & IDEs
+.DS_STORE
+**/.DS_Store
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+*.code-workspace
+.vscode
+.idea
+
+## Sphinx documentation
+docs/_build/
+
+## Unit test / coverage reports
+.flake8
+.tox/
+.coverage
+.cache
+.pytest_cache/
+nosetests.xml
+coverage.xml
+
+## Others
+tmp/
+*/vendor/
+*.aes
+*.env
+*.pre-commit-config.yaml
+*.db
