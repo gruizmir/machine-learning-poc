@@ -42,3 +42,9 @@ class SpamTrainer:
                 aggregates[cat] *= prob
 
         return aggregates
+
+    def normalized_score(self, email):
+        score = self.score(email=email)
+        score_sum = sum(score.values())
+        normalized = {cat: (agg / score_sum) for cat, agg in score.items()}
+        return normalized

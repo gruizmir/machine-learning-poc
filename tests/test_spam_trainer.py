@@ -41,3 +41,8 @@ class TestSpamTrainer:
         scores = list(trainer.score(email=spam_email).values())
         for i in range(len(scores) - 1):
             assert round(scores[i], 1) == round(scores[i + 1], 1)
+
+    def test_adds_up_to_one(self, trainer, spam_email):
+        scores = list(trainer.normalized_score(email=spam_email).values())
+        assert 0.99 <= sum(scores) <= 1.01
+        assert 0.49 <= round(scores[0], 2) <= 0.51
