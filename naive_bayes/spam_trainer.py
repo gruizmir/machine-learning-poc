@@ -18,7 +18,7 @@ class SpamTrainer:
     def train(self):
         for category, path in self.to_train:
             with open(path) as f:
-                email = EmailObject(content=f)
+                email = EmailObject(content=f.read())
                 self.categories.add(category)
 
                 for token in Tokenizer.tokenize(email.body):
@@ -27,3 +27,18 @@ class SpamTrainer:
                     self.totals[category] += 1
 
         self.to_train = {}
+
+    def score(self, email):
+        self.train()
+        totals = self.totals
+        aggregates = {
+            cat: totals[cat] / totals['_all']
+            for cat in self.categories
+        }
+        for token in Tokenizer.tokenize(email.body):
+            for cat in self.categories:
+                value = self.training[cat][token]
+                prob = (value + 1) / (totals[cat] + 1)
+                aggregates[cat] *= prob
+
+        return aggregates
