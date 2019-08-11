@@ -20,7 +20,7 @@ def trainer(training_set):
     return SpamTrainer(training_files=training_set)
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='function')
 def spam_email():
     with open('./datasets/bayes/plain.eml') as f:
         return EmailObject(content=f.read())
@@ -38,6 +38,6 @@ class TestSpamTrainer:
         assert trainer.total_for(category) == 0
 
     def test_probability_being_1_over_n(self, trainer, spam_email):
-        scores = trainer.score(email=spam_email).values()
+        scores = list(trainer.score(email=spam_email).values())
         for i in range(len(scores) - 1):
             assert round(scores[i], 1) == round(scores[i + 1], 1)

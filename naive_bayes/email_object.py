@@ -32,6 +32,6 @@ class EmailObject:
             elif content_type == 'text/plain':
                 self._body = payload
             else:
-                raise AttributeError('Only Html or Plain text are allowed as email body')
+                self._body = ''
 
         return self._body
