@@ -14,3 +14,16 @@ class SpamTrainer:
 
     def total_for(self, category):
         return self.totals[category]
+
+    def train(self):
+        for category, path in self.to_train:
+            with open(path) as f:
+                email = EmailObject(content=f)
+                self.categories.add(category)
+
+                for token in Tokenizer.tokenize(email.body):
+                    self.training[category][token] += 1
+                    self.totals['_all'] += 1
+                    self.totals[category] += 1
+
+        self.to_train = {}
