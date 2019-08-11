@@ -5,12 +5,13 @@ from naive_bayes import (
     SpamTrainer,
 )
 
+
 @pytest.fixture(scope='module')
 def training_set():
     return (
         ['spam', './datasets/bayes/plain.eml'],
         ['ham', './datasets/bayes/small.eml'],
-        ['scram', './datasets/bayes/plain.eml']
+        ['scram', './datasets/bayes/plain.eml'],
     )
 
 
