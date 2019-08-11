@@ -20,13 +20,15 @@ def trainer(training_set):
     return SpamTrainer(training_files=training_set)
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='module')
 def spam_email():
     with open('./datasets/bayes/plain.eml') as f:
         return EmailObject(content=f.read())
 
 
 class TestSpamTrainer:
+    # TODO: Repasar la sección de Clasificador Bayesiano
+    # y añadir los comentarios necesarios a cada test y funcion
 
     def test_multiple_categories(self, trainer, training_set):
         categories = trainer.categories
@@ -46,3 +48,18 @@ class TestSpamTrainer:
         scores = list(trainer.normalized_score(email=spam_email).values())
         assert 0.99 <= sum(scores) <= 1.01
         assert 0.49 <= round(scores[0], 2) <= 0.51
+
+    def test_preference_category(self, trainer):
+        expected_result = sorted(
+            trainer.categories,
+            key=lambda cat: trainer.total_for(cat),
+        )
+        assert trainer.preference == expected_result
+
+    def test_give_preference_to_whatever_has_the_most(self, trainer, spam_email):
+        score = trainer.score(email=spam_email)
+        preference = trainer.preference[-1]  # Works because we have only two possible results (spam & ham)  # NOQA
+        preference_score = score[preference]
+        SpamTrainer.classification = (preference, preference_score)
+
+        assert trainer.classify(email=spam_email) == SpamTrainer.classification
