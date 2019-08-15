@@ -1,7 +1,7 @@
 from collections import defaultdict
 
-from .tokenizer import Tokenizer
-from .email_object import EmailObject
+from naive_bayes.tokenizer import Tokenizer
+from naive_bayes.email_object import EmailObject
 
 
 class Classification:

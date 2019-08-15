@@ -3,8 +3,8 @@ import fire
 
 from os.path import join
 
-from .spam_trainer import SpamTrainer
-from .email_object import EmailObject
+from naive_bayes.spam_trainer import SpamTrainer
+from naive_bayes.email_object import EmailObject
 
 
 class Classificator:
@@ -42,8 +42,8 @@ class Classificator:
 
         ./classificator.py run fold1.label
         '''
-        fold = join('datasets/bayes/training', fold)
-        keyfile = join('datasets/bayes/training', keyfile)
+        fold = join('/home/gabriel/projects/machine-learning/datasets/bayes/', fold)
+        keyfile = join('/home/gabriel/projects/machine-learning/datasets/bayes/', keyfile)
 
         trainer = self.load_data(fold=fold)
         emails = self.parse_emails(keyfile=keyfile)
