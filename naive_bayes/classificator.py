@@ -27,9 +27,12 @@ class Classificator:
             for line in kf.readlines():
                 label, filename = line.strip().split(' ')
                 path = os.path.join(self.BASE_DIR, 'datasets', filename)
-                with open(path) as email_file:
-                    email_obj = EmailObject(content=email_file.read(), category=label)
-                    emails.append(email_obj)
+                try:
+                    with open(path, 'r') as email_file:
+                        email_obj = EmailObject(content=email_file.read(), category=label)
+                        emails.append(email_obj)
+                except:
+                    print(path)
 
         print(f'Done parsing emails for {keyfile}')
         print(f'Parsed {len(emails)} emails')

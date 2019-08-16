@@ -1,3 +1,5 @@
+import os
+
 from collections import defaultdict
 
 from naive_bayes.tokenizer import Tokenizer
@@ -15,6 +17,7 @@ class Classification:
 
 
 class SpamTrainer:
+    BASE_DIR = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
     def __init__(self, training_files):
         self.categories = {cat for cat, path in training_files}
@@ -39,10 +42,14 @@ class SpamTrainer:
 
     def train(self):
         for category, path in self.to_train:
-            with open(path) as f:
-                email = EmailObject(content=f.read())
-                self.categories.add(category)
-
+            filepath = os.path.join(self.BASE_DIR, 'naive_bayes', 'datasets', path)
+            try:
+                with open(filepath) as f:
+                    email = EmailObject(content=f.read())
+                    self.categories.add(category)
+            except:
+                print(filepath)
+            else:
                 for token in Tokenizer.tokenize(email.body):
                     self.training[category][token] += 1
                     self.totals['_all'] += 1
