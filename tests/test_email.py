@@ -11,7 +11,7 @@ CLRF = '\n\n'
 
 @pytest.fixture(scope='function')
 def plain_email():
-    plain_file = './datasets/bayes/tests/plain.eml'
+    plain_file = './naive_bayes/datasets/tests/plain.eml'
     with open(plain_file, 'r') as f:
         text = f.read()
         email_obj = EmailObject(content=text)
@@ -20,7 +20,7 @@ def plain_email():
 
 @pytest.fixture(scope='function')
 def html_email():
-    plain_file = './datasets/bayes/tests/html.eml'
+    plain_file = './naive_bayes/datasets/tests/html.eml'
     with open(plain_file, 'r') as f:
         text = f.read()
         email_obj = EmailObject(content=text)

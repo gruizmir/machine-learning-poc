@@ -5,13 +5,12 @@ from naive_bayes.spam_trainer import SpamTrainer
 from naive_bayes.email_object import EmailObject
 
 
-
 class Classificator:
     correct = 0
     false_positives = 0.0
     false_negatives = 0.0
     confidence = 0.0
-    BASE_DIR = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+    BASE_DIR = os.path.abspath(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
     def load_data(self, fold):
         with open(fold) as f:
@@ -19,7 +18,6 @@ class Classificator:
                 line.rstrip().split(' ')
                 for line in f.readlines()
             ]
-        # print(training_data)
         return SpamTrainer(training_files=training_data)
 
     def parse_emails(self, keyfile):
@@ -28,7 +26,7 @@ class Classificator:
         with open(keyfile) as kf:
             for line in kf.readlines():
                 label, filename = line.strip().split(' ')
-                path = os.path.join(self.BASE_DIR, 'datasets', 'bayes', filename)
+                path = os.path.join(self.BASE_DIR, 'datasets', filename)
                 with open(path) as email_file:
                     email_obj = EmailObject(content=email_file.read(), category=label)
                     emails.append(email_obj)
@@ -43,8 +41,8 @@ class Classificator:
 
         ./classificator.py run fold1.label
         '''
-        fold = os.path.join(self.BASE_DIR, 'datasets', 'bayes', fold)
-        keyfile = os.path.join(self.BASE_DIR, 'datasets', 'bayes', keyfile)
+        fold = os.path.join(self.BASE_DIR, 'datasets', fold)
+        keyfile = os.path.join(self.BASE_DIR, 'datasets', keyfile)
 
         trainer = self.load_data(fold=fold)
         emails = self.parse_emails(keyfile=keyfile)
