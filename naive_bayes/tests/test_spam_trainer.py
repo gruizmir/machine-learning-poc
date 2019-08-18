@@ -9,9 +9,9 @@ from naive_bayes import (
 @pytest.fixture(scope='module')
 def training_set():
     return (
-        ['spam', './naive_bayes/datasets/tests/plain.eml'],
-        ['ham', './naive_bayes/datasets/tests/small.eml'],
-        ['scram', './naive_bayes/datasets/tests/plain.eml'],
+        ['spam', './datasets/tests/plain.eml'],
+        ['ham', './datasets/tests/small.eml'],
+        ['scram', './datasets/tests/plain.eml'],
     )
 
 
@@ -22,7 +22,7 @@ def trainer(training_set):
 
 @pytest.fixture(scope='module')
 def spam_email():
-    with open('./naive_bayes/datasets/tests/plain.eml') as f:
+    with open('./datasets/tests/plain.eml') as f:
         return EmailObject(content=f.read())
 
 
