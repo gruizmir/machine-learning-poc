@@ -12,7 +12,3 @@ class MushroomRegression(MushroomProblem):
     def validate(self, folds):
         for y_true, y_pred in self.validation_data(folds):
             yield mean_squared_error(y_true, y_pred)
-        # responses = []
-        # for y_true, y_pred in self.validation_data(folds):
-        #     responses.append(mean_squared_error(y_true, y_pred))
-        # return responses

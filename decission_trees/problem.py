@@ -25,9 +25,8 @@ class MushroomProblem:
         assert len(df) > folds
         perms = np.array_split(permutation(len(df)), folds)
 
-        # response = []
         for i in range(folds):
-            train_idxs = range(folds)
+            train_idxs = list(range(folds))
             train_idxs.pop(i)
             train = [perms[idx] for idx in train_idxs]
             train = np.concatenate(train)
@@ -38,13 +37,10 @@ class MushroomProblem:
 
             y = self.__factorize(training)
             classifier = self.train(training[self.features], y)
-            predictions = classifier.predict[test_data[self.features]]
+            predictions = classifier.predict(test_data[self.features])
 
             expected = self.__factorize(test_data)
             yield (predictions, expected)
-            # response.append([predictions, expected])
-
-        # return response
 
     @abstractmethod
     def train(self, training_set, categories):
